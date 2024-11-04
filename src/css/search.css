@@ -1,0 +1,153 @@
+/* Основные стили для контейнера поиска */
+.search {
+    text-align: center;
+    margin-top: 36px;
+}
+
+/* Стили input */
+input {
+    padding: 8px 16px;
+    margin-right: 8px;
+    border-radius: 4px;
+    border: 1px solid #808080;
+    font-family: Montserrat, sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+    letter-spacing: 0.04em;
+    transition: all 200ms ease-in-out;
+}
+
+input:hover {
+    border-color: #000000;
+}
+
+input:focus {
+    border-color: #4E75FF;
+    outline: none;
+    /* Убираем стандартное выделение */
+}
+
+/* Стили для кнопки */
+button {
+    background-color: #4E75FF;
+    color: #fff;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 8px;
+    font-family: Montserrat, sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 24px;
+    letter-spacing: 0.04em;
+    transition: background-color 200ms ease-in-out, transform 100ms;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #6C8CFF;
+}
+
+button:active {
+    background-color: #3A5BCC;
+    transform: scale(0.98);
+    /* Лёгкое уменьшение при клике */
+}
+
+/* Галерея */
+.gallery__list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    /* Сокращённое расстояние для компактности */
+    padding: 36px 156px;
+    justify-content: center;
+    /* Центрируем галерею */
+}
+
+.gallery-item {
+    width: calc(100% / 3 - 32px);
+    /* Уменьшили для уплотнения */
+    border: 1px solid #808080;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    /* Добавлена лёгкая тень */
+    transition: transform 0.2s ease;
+}
+
+.gallery-item:hover {
+    transform: translateY(-4px);
+    /* Поднимаем при наведении */
+}
+
+.gallery-image {
+    height: 200px;
+    width: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* Информация о картинке */
+.info {
+    display: flex;
+    justify-content: space-around;
+    gap: 16px;
+    padding: 8px;
+    font-size: 12px;
+    color: #333;
+}
+
+.info__item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.title {
+    font-family: Montserrat, sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 16px;
+    letter-spacing: 0.04em;
+}
+
+.value {
+    font-family: Montserrat, sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 24px;
+    letter-spacing: 0.04em;
+}
+
+/* Лоадер */
+.loader__container {
+    margin-top: 50px;
+    text-align: center;
+    display: none;
+}
+
+.loader__container.active {
+    display: block;
+}
+
+.loader {
+    width: 48px;
+    height: 48px;
+    border: 5px solid #000;
+    border-bottom-color: transparent;
+    border-radius: 50%;
+    display: inline-block;
+    box-sizing: border-box;
+    animation: rotation 1s linear infinite;
+}
+
+@keyframes rotation {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}

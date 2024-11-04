@@ -1,34 +1,42 @@
-import { fetchImages } from './pixabay-api.js';
-import { renderGallery, showNotification, clearGallery } from './render-functions.js';
-import SimpleLightbox from 'simplelightbox';
-import 'simplelightbox/dist/simple-lightbox.min.css';
+import SimpleLightbox from "simplelightbox";
+import "simplelightbox/dist/simple-lightbox.min.css";
+import iziToast from "izitoast";
+import { searchImages } from "./js/pixabay-api";
+import { generateGalleryMarkup } from "./js/render-functions";
 
-const form = document.getElementById('search-form');
+const searchInput = document.querySelector('input[type=search]');
+const searchBtn = document.querySelector('button[type=submit]');
+const galleryList = document.querySelector('.gallery__list');
 let lightbox;
 
-form.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const query = e.target.elements.searchQuery.value.trim();
-    
-    if (!query) {
-        showNotification("Please enter a search query.");
-        return;
-    }
+searchBtn.addEventListener("click", event => {
+  event.preventDefault();
+  const query = searchInput.value;
 
-    clearGallery();
-    
-    const images = await fetchImages(query);
-    
-    if (images.length === 0) {
-        showNotification("Sorry, there are no images matching your search query. Please try again!");
-        return;
-    }
+  if (query === '') {
+    iziToast.error({
+      title: 'Error',
+      message: 'Fill search input!',
+      position: 'topRight'
+    });
+    return;
+  }
 
-    renderGallery(images);
-    
-    if (!lightbox) {
-        lightbox = new SimpleLightbox('.gallery a');
+  galleryList.innerHTML = '';
+  
+  searchImages(query, images => {
+    const markup = generateGalleryMarkup(images);
+    galleryList.innerHTML = markup;
+
+    if (lightbox) {
+      lightbox.refresh();
     } else {
-        lightbox.refresh();
+      lightbox = new SimpleLightbox('.gallery__list a', {
+        captionsData: 'alt',
+        captionDelay: 250,
+      });
     }
+
+    searchInput.value = '';
+  });
 });

@@ -4,14 +4,17 @@ import iziToast from "izitoast";
 import { searchImages } from "./js/pixabay-api";
 import { generateGalleryMarkup } from "./js/render-functions";
 
+const form = document.querySelector('.search-form'); // Отримуємо форму
 const searchInput = document.querySelector('input[type=search]');
-const searchBtn = document.querySelector('button[type=submit]');
 const galleryList = document.querySelector('.gallery__list');
 let lightbox;
 
-searchBtn.addEventListener("click", event => {
+form.addEventListener("submit", event => {
   event.preventDefault();
-  const query = searchInput.value;
+  
+  
+  
+  const query = searchInput.value.trim();
 
   if (query === '') {
     iziToast.error({
@@ -22,12 +25,14 @@ searchBtn.addEventListener("click", event => {
     return;
   }
 
+  
   galleryList.innerHTML = '';
   
   searchImages(query, images => {
     const markup = generateGalleryMarkup(images);
     galleryList.innerHTML = markup;
 
+    
     if (lightbox) {
       lightbox.refresh();
     } else {
